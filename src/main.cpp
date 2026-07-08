@@ -51,7 +51,7 @@ int main()
 			break;
 
 		case 3: //search product
-			
+			inventory.searchProduct();
 			break;
 
 		case 4: //update product
