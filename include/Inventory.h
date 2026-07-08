@@ -17,6 +17,7 @@ public:
 	void addProduct(const Product& product);
 
 	void displayProducts() const;
+	void searchProduct() const;
 };
 
 #endif
