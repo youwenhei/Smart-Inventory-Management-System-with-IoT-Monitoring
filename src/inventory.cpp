@@ -1,9 +1,28 @@
 #include "Inventory.h"
 #include <iostream>
+#include <cctype>
 
 Inventory::Inventory()
 {
 	newProductID = 1;
+}
+
+//date validation function
+bool isValidDate(const std::string& date) 
+{
+	if (date.empty())
+		return true; //for specific product
+
+	if (date.length() != 10 || date[4] != '-' || date[7] != '-') 
+	{
+		return false;
+	}
+
+	for (int i = 0; i < date.length(); i++)
+	{
+		if (i == 4 || i == 7) continue;
+		if (!isdigit(date[i])) return false;
+	}
 }
 
 void Inventory::addProduct()
@@ -36,11 +55,29 @@ void Inventory::addProduct()
 	std::cout << "Enter Product Supplier: ";
 	std::getline(std::cin, supplier);
 
-	std::cout << "Enter Product Expiry Date (YYYY-MM-DD): ";
-	std::getline(std::cin, expiryDate);
+	do
+	{
+		std::cout << "Enter Product Expiry Date (YYYY-MM-DD, press Enter if none): ";
+		std::getline(std::cin, expiryDate);
 
-	std::cout << "Enter Product Manufacture Date (YYYY-MM-DD): ";
-	std::getline(std::cin, manufactureDate);
+		if (!isValidDate(expiryDate))
+		{
+			std::cout << "The date format is invalid. Please re-enter the date in YYYY-MM-DD format." << std::endl;
+			std::cout << "Thank you for your understanding." << std::endl;
+		}
+	} while (!isValidDate(expiryDate));
+
+	do
+	{
+		std::cout << "Enter Product Manufacture Date (YYYY-MM-DD, press Enter if none): ";
+		std::getline(std::cin, manufactureDate);
+
+		if (!isValidDate(manufactureDate))
+		{
+			std::cout << "The date format is invalid. Please re-enter the date in YYYY-MM-DD format." << std::endl;
+			std::cout << "Thank you for your understanding." << std::endl;
+		}
+	} while (!isValidDate(manufactureDate));
 
 	Product newProduct(
 		newProductID,
