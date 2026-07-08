@@ -1,5 +1,6 @@
 #include "Product.h"
 #include <iostream>
+#include <utility>
 
 Product::Product(int product_ID, std::string product_Barcode, std::string product_Name, std::string product_Description, std::string product_Category,
     int product_Quantity, double product_Price,
@@ -21,9 +22,9 @@ Product::Product(int product_ID, std::string product_Barcode, std::string produc
 
 void Product::display() const
 {
-	std::cout << "====================================================\n";
-	std::cout << "Product Details:\n";
-	std::cout << "====================================================\n";
+    std::cout << "====================================================\n";
+    std::cout << "Product Details:\n";
+    std::cout << "====================================================\n";
     std::cout << "Product ID: " << product_ID << "\n"
         << "Product Barcode: " << product_Barcode << "\n"
         << "Product Name: " << product_Name << "\n"
@@ -34,5 +35,10 @@ void Product::display() const
         << "Product Supplier: " << product_Supplier << "\n"
         << "Product Expiry Date: " << product_ExpiryDate << "\n"
         << "Product Manufacture Date: " << product_ManufactureDate << "\n";
-	std::cout << "====================================================\n";
+    std::cout << "====================================================\n";
+}
+
+int Product::getID() const
+{
+	return product_ID;
 }
