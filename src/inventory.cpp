@@ -235,25 +235,102 @@ void Inventory::displayProducts() const
 
 void Inventory::searchProduct() const
 {
-	int id;
-
-	std::cout << "Please Enter the Product ID to Search: ";
-	std::cin >> id;
+	int option;
+	std::cout << "=======================================================================\n";
+	std::cout << "Search Product by:\n";
+	std::cout << "=======================================================================\n";
+	std::cout << "1. Search by Product ID" << std::endl;
+	std::cout << "2. Search by Product Barcode" << std::endl;
+	std::cout << "3. Search by Product Name" << std::endl;
+	std::cout << "4. Search by Product Category" << std::endl;
+	std::cout << "=======================================================================\n";
+	std::cout << "Please select an option: ";
+	std::cin >> option;
+	std::cout << "=======================================================================\n";
+	std::cout << "The page is loading, please wait..." << std::endl;
 
 	bool found = false;
 
-	for (const auto& product : products)
+	if (option == 1)
 	{
-		if (product.getID() == id)
+		int id;
+
+		std::cout << "Please Enter the Product ID to Search: ";
+		std::cin >> id;
+
+		for (const auto& product : products)
 		{
-			product.display();
-			found = true;
-			break;
+			if (product.getID() == id)
+			{
+				product.display();
+				found = true;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			std::cout << "Sorry! The product with ID " << id << " is not found.Please enter again." << std::endl;
 		}
 	}
 
-	if (!found)
+	if (option == 2)
 	{
-		std::cout << "The product with ID " << id << " is not found." << std::endl;
+		std::string barcode;
+		std::cout << "Please Enter the Product Barcode to Search: ";
+		std::cin >> barcode;
+		for (const auto& product : products)
+		{
+			if (product.getBarcode() == barcode)
+			{
+				product.display();
+				found = true;
+				break;
+			}
+		}
+		if (!found)
+		{
+			std::cout << "Sorry! The product with Barcode " << barcode << " is not found.Please enter again." << std::endl;
+		}
 	}
-}
+
+	if (option == 3)
+	{
+		std::string name;
+		std::cout << "Please Enter the Product Name to Search: ";
+		std::cin.ignore();
+		std::getline(std::cin, name);
+		for (const auto& product : products)
+		{
+			if (product.getName() == name)
+			{
+				product.display();
+				found = true;
+				break;
+			}
+		}
+		if (!found)
+		{
+			std::cout << "Sorry! The product with Name " << name << " is not found.Please enter again." << std::endl;
+		}
+	}
+	
+	if (option == 4)
+	{
+		std::string category;
+		std::cout << "Please Enter the Product Category to Search: ";
+		std::cin.ignore();
+		std::getline(std::cin, category);
+		for (const auto& product : products)
+		{
+			if (product.getCategory() == category)
+			{
+				product.display();
+				found = true;
+			}
+		}
+		if (!found)
+		{
+			std::cout << "Sorry! The product with Category " << category << " is not found.Please enter again." << std::endl;
+		}
+	}
