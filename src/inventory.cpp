@@ -8,20 +8,55 @@ Inventory::Inventory()
 }
 
 //date validation function
-bool isValidDate(const std::string& date) 
+bool isValidDate(const std::string& date)
 {
 	if (date.empty())
 		return true; //for specific product
 
-	if (date.length() != 10 || date[4] != '-' || date[7] != '-') 
+	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
 	{
 		return false;
 	}
 
 	for (int i = 0; i < date.length(); i++)
 	{
-		if (i == 4 || i == 7) continue;
-		if (!isdigit(date[i])) return false;
+		if (i == 4 || i == 7) 
+			continue;
+		if (!isdigit(date[i])) 
+			return false;
+
+		int year = std::stoi(date.substr(0, 4));
+		int month = std::stoi(date.substr(5, 2));
+		int day = std::stoi(date.substr(8, 2));
+
+		if (month < 1 || month > 12)
+		{
+			return false;
+		}
+
+		int daysInMonth;
+
+		switch (month)
+		{
+		case 2:
+			if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+				daysInMonth = 29; // Leap year
+			else
+				daysInMonth = 28;
+			break;
+
+		case 4: case 6: case 9: case 11:
+			daysInMonth = 30;
+			break;
+
+		default:
+			daysInMonth = 31;
+		}
+
+		if (day < 1 || day > daysInMonth)
+		{
+			return false;
+		}
 	}
 
 	return true;
@@ -178,13 +213,13 @@ bool Inventory::isBarcodeExist(const std::string& barcode) const
 	return false;
 }
 
-void Inventory::addProduct(const Product& product) 
+void Inventory::addProduct(const Product& product)
 {
 	products.push_back(product); //to add the product to the vector 
 	//(products(empty)) become (products(1)) after adding the product
 }
 
-void Inventory::displayProducts() const 
+void Inventory::displayProducts() const
 {
 	if (products.empty())
 	{
