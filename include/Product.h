@@ -1,4 +1,3 @@
-//include guards
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
@@ -35,6 +34,11 @@ public: //product creation
 	//getter function
 	int getID() const;
 	std::string getBarcode() const;
+	
+	std::string getName() const;
+	std::string getCategory() const;
+	std::string getExpiryDate() const;
+	double getPrice() const;
 };
 
 #endif
