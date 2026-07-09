@@ -47,3 +47,23 @@ std::string Product::getBarcode() const
 {
 	return product_Barcode;
 }
+
+std::string Product::getName() const
+{
+	return product_Name;
+}
+
+std::string Product::getCategory() const
+{
+	return product_Category;
+}
+
+std::string Product::getExpiryDate() const
+{
+	return product_ExpiryDate;
+}
+
+double Product::getPrice() const
+{
+	return product_Price;
+}
