@@ -33,12 +33,13 @@ public: //product creation
 	//getter function
 	int getID() const;
 	std::string getBarcode() const;
-	
 	std::string getName() const;
 	std::string getCategory() const;
 	std::string getExpiryDate() const;
 	double getPrice() const;
+	int getQuantity() const;
 	std::string getSupplier() const;
+	double getInventoryValue() const;
 };
 
 #endif
