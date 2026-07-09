@@ -1,6 +1,5 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
-
 #pragma once
 #include <string>
 
@@ -39,6 +38,7 @@ public: //product creation
 	std::string getCategory() const;
 	std::string getExpiryDate() const;
 	double getPrice() const;
+	std::string getSupplier() const;
 };
 
 #endif
