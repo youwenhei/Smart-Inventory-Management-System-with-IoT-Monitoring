@@ -72,3 +72,13 @@ std::string Product::getSupplier() const
 {
 	return product_Supplier;
 }
+
+int Product::getQuantity() const
+{
+	return product_Quantity;
+}
+
+double Product::getInventoryValue() const
+{
+	return product_Quantity * product_Price;
+}
