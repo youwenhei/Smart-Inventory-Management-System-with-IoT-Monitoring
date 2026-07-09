@@ -1,6 +1,5 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
-
 #pragma once
 #include <vector>
 #include "Product.h"
@@ -17,7 +16,14 @@ public:
 	void addProduct(const Product& product);
 
 	void displayProducts() const;
+
 	void searchProduct() const;
+	void searchProductByID() const;
+	void searchProductByBarcode() const;
+	void searchProductByName() const;
+	void searchProductByCategory() const;
+	void searchBySupplier() const;
+	void searchByPriceRange() const;
 
 	void sortByPriceAscending();
 	void sortByPriceDescending();
