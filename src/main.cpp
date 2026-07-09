@@ -15,7 +15,6 @@ void clearScreen()
 void pauseScreen()
 {
 	cout << "Press Enter to continue...";
-	cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
 	cin.get();
 }
 
@@ -72,6 +71,7 @@ int main()
 				cout << "Thank you for your understanding." << endl;
 				continue;
 			}
+			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n'); // Clear the input buffer
 			break;
 		}
 
@@ -88,7 +88,6 @@ int main()
 			clearScreen();
 			inventory.displayProducts();
 			pauseScreen();
-			clearScreen();
 			break;
 
 		case 3: //search product
@@ -100,8 +99,7 @@ int main()
 
 		case 4: //sort product
 			clearScreen();
-
-			pauseScreen();
+			inventory.sortProducts();
 			clearScreen();
 			break;
 
