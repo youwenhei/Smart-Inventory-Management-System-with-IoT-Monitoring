@@ -74,10 +74,7 @@ int main()
 			break;
 
 		case 7: //check product status
-			clearScreen();
-
-			pauseScreen("Press Enter to return...");
-			clearScreen();
+			inventory.checkProductStatus();
 			break;
 
 		case 8:
