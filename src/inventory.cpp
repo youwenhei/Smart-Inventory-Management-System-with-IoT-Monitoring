@@ -1311,3 +1311,76 @@ void Inventory::updateProduct()
 	pauseScreen("Press Enter to return...");
 	clearScreen();
 }
+
+//delete product function
+void Inventory::deleteProduct()
+{
+	clearScreen();
+
+	if (!hasProducts())
+	{
+		pauseScreen("Please Enter to return...");
+		clearScreen();
+		return;
+	}
+
+	int id;
+
+	while (true)
+	{
+		std::cout << "=======================================================================\n";
+		std::cout << "Delete Products Menu\n";
+		std::cout << "=======================================================================\n";
+		std::cout << "Please enter the Product ID to delete: ";
+
+		if (std::cin >> id && id > 0)
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			break;
+		}
+
+		std::cout << "The Product ID is invalid. Please try again." << std::endl;
+		
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	}
+
+	for (auto it = products.begin(); it != products.end(); ++it)
+	{
+		if ((*it).getID() == id)
+		{
+			std::cout << "\nThe product with the ID is found:\n";
+			(*it).display();
+
+			char confirm;
+
+			std::cout << "\nAre you sure to delete this product? (y/n): ";
+			std::cin >> confirm;
+
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			
+			confirm = std::tolower(static_cast<unsigned char>(confirm));
+
+			if (confirm == 'y')
+			{
+				products.erase(it);
+
+				std::cout << "\nCongratulations! The product is deleted successfully." << std::endl;
+			}
+
+			else
+			{
+				std::cout << "\nOh no, the delete operation is cancelled. Please try again if needed." << std::endl;
+			}
+
+			pauseScreen("Press Enter to return...");
+			clearScreen();
+			return;
+		}
+	}
+
+	std::cout << "Sorry! The Product ID " << id << " is not found." << std::endl;
+
+	pauseScreen("Press Enter to return...");
+	clearScreen();
+}
