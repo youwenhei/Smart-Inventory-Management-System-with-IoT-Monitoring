@@ -12,6 +12,7 @@ Inventory::Inventory()
 	newProductID = 1;
 }
 
+//menu
 int Inventory::getMenuOption(int min, int max) const
 {
 	int option;
@@ -153,6 +154,73 @@ bool isValidSupplier(const std::string& supplier)
 	return true;
 }
 
+//check for the existance of barcode
+bool Inventory::isBarcodeExist(const std::string& barcode) const
+{
+	for(const auto& product : products)
+	{
+		if(product.getBarcode() == barcode)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+std::string trim(const std::string& str)
+{
+	size_t start = str.find_first_not_of(" \t\r\n");
+	size_t end = str.find_last_not_of(" \t\r\n");
+
+	if (start == std::string::npos)
+	{
+		return "";
+	}
+
+	return str.substr(start, end - start + 1);
+}
+
+//change case function
+std::string toLowerCase(const std::string& str)
+{
+	std::string lowerStr = str;
+	[](unsigned char c)
+		{
+			return static_cast<char>(std::tolower(c));
+		});
+
+	return lowerStr;
+}
+
+//function for checking if there is product
+bool Inventory::hasProducts() const
+{
+	return !products.empty();
+}
+
+//function for adding product
+void Inventory::addProduct(const Product& product)
+{
+	products.push_back(product); //to add the product to the vector 
+	//(products(empty)) become (products(1)) after adding the product
+}
+
+//diaplay function
+void Inventory::displayProducts() const
+{
+	if(!hasProducts())
+	{
+		return;
+	}
+
+	for(const auto& product : products)
+	{
+		product.display();
+	}
+}
+
+//Functions in Main Menu
+
 //add product function
 void Inventory::addProduct()
 {
@@ -161,7 +229,7 @@ void Inventory::addProduct()
 	std::string barcode, name, description, category, supplier, expiryDate, manufactureDate;
 
 	std::cout << "\n===============================Add Product===============================\n";
-	
+
 	//barcode validation
 	do
 	{
@@ -183,7 +251,7 @@ void Inventory::addProduct()
 	} while (!isValidBarcode(barcode) || isBarcodeExist(barcode));
 
 	//name validation
-	while(true)
+	while (true)
 	{
 		std::cout << "Enter Product Name: ";
 		std::getline(std::cin, name);
@@ -197,13 +265,13 @@ void Inventory::addProduct()
 	}
 
 	//description vaidation
-	while(true)
+	while (true)
 	{
 		std::cout << "Enter Product Description: ";
 		std::getline(std::cin, description);
 		description = trim(description);
 
-		if (!description.empty()) 
+		if (!description.empty())
 		{
 			break;
 		}
@@ -211,7 +279,7 @@ void Inventory::addProduct()
 	}
 
 	//category validation
-	while(true)
+	while (true)
 	{
 		std::cout << "Enter Product Category: ";
 		std::getline(std::cin, category);
@@ -225,7 +293,7 @@ void Inventory::addProduct()
 	}
 
 	//quantity validation
-	while(true)
+	while (true)
 	{
 		std::cout << "Enter Product Quantity: ";
 		if (!(std::cin >> quantity) || !isValidQuantity(quantity))
@@ -238,12 +306,12 @@ void Inventory::addProduct()
 		}
 
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		
+
 		break;
 	}
 
 	//price validation
-	while(true)
+	while (true)
 	{
 		std::cout << "Enter Product Price: RM ";
 		if (!(std::cin >> price) || !isValidPrice(price))
@@ -261,7 +329,7 @@ void Inventory::addProduct()
 	}
 
 	//supplier validation
-	while(true)
+	while (true)
 	{
 		std::cout << "Enter Product Supplier: ";
 		std::getline(std::cin, supplier);
@@ -337,64 +405,6 @@ void Inventory::addProduct()
 
 	std::cout << "=======================================================================\n";
 	std::cout << "Product is added successfully!\n";
-}
-
-//check for the existance of barcode
-bool Inventory::isBarcodeExist(const std::string& barcode) const
-{
-	for(const auto& product : products)
-	{
-		if(product.getBarcode() == barcode)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-std::string trim(const std::string& str)
-{
-	size_t start = str.find_first_not_of(" \t\r\n");
-	size_t end = str.find_last_not_of(" \t\r\n");
-
-	if (start == std::string::npos)
-	{
-		return "";
-	}
-
-	return str.substr(start, end - start + 1);
-}
-
-std::string toLowerCase(const std::string& str)
-{
-	std::string lowerStr = str;
-	std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(),
-		[](unsigned char c) {return std::tolower(c); });
-	return lowerStr;
-}
-
-bool Inventory::hasProducts() const
-{
-	return !products.empty();
-}
-
-void Inventory::addProduct(const Product& product)
-{
-	products.push_back(product); //to add the product to the vector 
-	//(products(empty)) become (products(1)) after adding the product
-}
-
-void Inventory::displayProducts() const
-{
-	if(!hasProducts())
-	{
-		return;
-	}
-
-	for(const auto& product : products)
-	{
-		product.display();
-	}
 }
 
 //search product function
@@ -1380,6 +1390,50 @@ void Inventory::deleteProduct()
 	}
 
 	std::cout << "Sorry! The Product ID " << id << " is not found." << std::endl;
+
+	pauseScreen("Press Enter to return...");
+	clearScreen();
+}
+
+//check product status function
+void Inventory::checkProductStatus()
+{
+	clearScreen();
+
+	if (!hasProducts())
+	{
+		pauseScreen("Please Enter to return...");
+		clearScreen();
+		return;
+	}
+
+	std::cout << "=======================================================================\n";
+	std::cout << "Product Status Monitoring Menu\n";
+	std::cout << "=======================================================================\n";
+
+	for (const auto& product : products)
+	{
+		std::cout << "Product ID: " << product.getID() << std::endl;
+		std::cout << "Product Name: " << product.getName() << std::endl;
+		std::cout << "Product Quantity: " << product.getQuantity() << std::endl;
+
+		if (product.getQuantity() == 0)
+		{
+			std::cout << "Product Status: Out of Stock" << std::endl;
+		}
+
+		else if (product.getQuantity() <= LOW_STOCK_THRESHOLD)
+		{
+			std::cout << "Product Status: Low Stock" << std::endl;
+		}
+
+		else
+		{
+			std::cout << "Product Status: In Stock" << std::endl;
+		}
+
+		std::cout << "=======================================================================\n";
+	}
 
 	pauseScreen("Press Enter to return...");
 	clearScreen();
