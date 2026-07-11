@@ -6,6 +6,7 @@
 class Product
 {
 private: //cannot be edited
+
 	//product attributes
 	int product_ID;
 	std::string product_Barcode;
@@ -36,15 +37,23 @@ public: //product creation
 	std::string getName() const;
 	std::string getCategory() const;
 	std::string getExpiryDate() const;
+	std::string getManufactureDate() const;
 	double getPrice() const;
 	int getQuantity() const;
 	std::string getSupplier() const;
+	std::string getDescription() const;
 	double getInventoryValue() const;
-};
 
-#endif
-	std::string getSupplier() const;
-	double getInventoryValue() const;
+	//setter function
+	void setBarcode(std::string newBarcode);
+	void setName(std::string newName);
+	void setDescription(std::string newDescription);
+	void setCategory(std::string newCategory);
+	void setQuantity(int newQuantity);
+	void setPrice(double newPrice);
+	void setSupplier(std::string newSupplier);
+	void setExpiryDate(std::string newExpiry);
+	void setManufactureDate(std::string newManufacture);
 };
 
 #endif
