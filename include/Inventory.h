@@ -32,11 +32,7 @@ public:
 
 	bool isBarcodeExist(const std::string& barcode) const;
 	bool hasProducts() const;
-	int getMenuOption(int min, int max);
+	int getMenuOption(int min, int max) const;
 };
-
-#endif
-
-#endif
 
 #endif
