@@ -18,3 +18,17 @@ A C++ OOP-based inventory management system designed for product management and 
 - MySQL database integration
 - ESP32 IoT monitoring
 - Web dashboard
+
+## Screenshots
+
+### Main Menu
+![Main Menu](screenshots/main_menu.png)
+
+### Add Product
+![Add Product](screenshots/add_product.png)
+
+### Search Product
+![Search Product](screenshots/search_product.png)
+
+### Sort Product
+![Sort Product](screenshots/sort_product.png)
