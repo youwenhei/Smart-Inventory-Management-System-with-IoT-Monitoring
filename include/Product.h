@@ -1,15 +1,17 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 #pragma once
+
 #include <string>
 
 class Product
 {
-private: //cannot be edited
+private:
 
 	//product attributes
 	int product_ID;
 	std::string product_Barcode;
+	std::string product_RFID_UID;
 	std::string product_Name;
 	std::string product_Description;
 	std::string product_Category;
@@ -23,13 +25,23 @@ private: //cannot be edited
 	std::string product_ExpiryDate;
 	std::string product_ManufactureDate;
 
-public: //product creation
-	Product(int product_ID, std::string product_Barcode, std::string product_Name, std::string product_Description, std::string product_Category,
-		int product_Quantity, double product_Price,
-		std::string product_Supplier, std::string product_ExpiryDate, std::string product_ManufactureDate);
+public:
+
+	Product(int product_ID,
+		std::string product_Barcode,
+		std::string product_Name,
+		std::string product_Description,
+		std::string product_Category,
+		int product_Quantity,
+		double product_Price,
+		std::string product_Supplier,
+		std::string product_ExpiryDate,
+		std::string product_ManufactureDate);
+
 
 	//system function
 	void display() const;
+
 
 	//getter function
 	int getID() const;
@@ -43,6 +55,8 @@ public: //product creation
 	std::string getSupplier() const;
 	std::string getDescription() const;
 	double getInventoryValue() const;
+	std::string getRFID() const;
+
 
 	//setter function
 	void setBarcode(std::string newBarcode);
@@ -54,6 +68,8 @@ public: //product creation
 	void setSupplier(std::string newSupplier);
 	void setExpiryDate(std::string newExpiry);
 	void setManufactureDate(std::string newManufacture);
+	void setRFID(std::string newRFID);
+
 };
 
 #endif
