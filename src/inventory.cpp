@@ -1006,19 +1006,20 @@ void Inventory::updateProduct()
 	std::cout << "7. Update Supplier" << std::endl;
 	std::cout << "8. Update Expiry Date" << std::endl;
 	std::cout << "9. Update Manufacture Date" << std::endl;
-	std::cout << "10. Return to Main Menu" << std::endl;
-	std::cout << "11. Exit" << std::endl;
+	std::cout << "10. Update RFID UID" << std::endl;
+	std::cout << "11. Return to Main Menu" << std::endl;
+	std::cout << "12. Exit" << std::endl;
 	std::cout << "=======================================================================\n";
 	std::cout << "Please select an option: ";
 
-	option = getMenuOption(1, 11);
-	if(option == 10)
+	option = getMenuOption(1, 12);
+	if(option == 11)
 	{
 		returnProgram();
 		return;
 	}
 
-	if (option == 11)
+	if (option == 12)
 	{
 		exitProgram();
 		return;
@@ -1299,6 +1300,28 @@ void Inventory::updateProduct()
 
 					product.setManufactureDate(manufactureDate);
 					std::cout << "Congratulations! The Product Manufacture Date is updated successfully!" << std::endl;
+					break;
+				}
+
+				//RFID
+				case 10:
+				{
+					std::string newRFID;
+
+					while (true)
+					{
+						newRFID = inputString("Enter a new RFID UID: ");
+
+						if (newRFID == product.getRFID())
+						{
+							std::cout << "The new Product RFID UID is the same as the current Product RFID UID." << std::endl;
+							continue;
+						}
+
+						break;
+					}
+					product.setRFID(newRFID);
+					std::cout << "Congratulations! The Product RFID UID is updated successfully!" << std::endl;
 					break;
 				}
 
