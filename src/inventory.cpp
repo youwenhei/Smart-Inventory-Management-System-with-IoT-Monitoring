@@ -134,7 +134,17 @@ bool isValidName(const std::string& name)
 
 	for (char c : name)
 	{
-		if (!std::isalnum(static_cast<unsigned char>(c)) && c != ' ' && c != '&' && c != '-')
+		if (!std::isalnum(static_cast<unsigned char>(c))
+			&& c != ' '
+			&& c != '&'
+			&& c != '-'
+			&& c != '\''
+			&& c != '.'
+			&& c != '/'
+			&& c != '+'
+			&& c != '('
+			&& c != ')'
+			&& c != ',')
 		{
 			return false;
 		}
@@ -182,7 +192,17 @@ bool isValidSupplier(const std::string& supplier)
 
 	for (char c : supplier)
 	{
-		if (!std::isalnum(static_cast<unsigned char>(c)) && c != ' ' && c != '&' && c != '-')
+		if (!std::isalnum(static_cast<unsigned char>(c))
+			&& c != ' '
+			&& c != '&'
+			&& c != '-'
+			&& c != '\''
+			&& c != '.'
+			&& c != '/'
+			&& c != '+'
+			&& c != '('
+			&& c != ')'
+			&& c != ',')
 		{
 			return false;
 		}
@@ -289,25 +309,28 @@ void Inventory::addProduct()
 	double price;
 	std::string barcode, name, description, category, supplier, expiryDate, manufactureDate;
 
-	std::cout << "\n===============================Add Product===============================\n";
+	std::cout << "=======================================================================\n";
+	std::cout << "Add Product Menu\n";
+	std::cout << "=======================================================================\n";
+
 
 	//barcode validation
 	while (true)
 	{
-		std::cout << "Enter Product Barcode (9 digits): ";
+		std::cout << "Please enter the Product Barcode (9 digits): ";
 		std::getline(std::cin, barcode);
 		barcode = trim(barcode);
 
 		if (!isValidBarcode(barcode))
 		{
-			std::cout << "The barcode format is invalid. Please re-enter the barcode with 9 digits." << std::endl;
+			std::cout << "The Product Barcode format is invalid. Please re-enter the Product Barcode with 9 digits." << std::endl;
 			std::cout << "Thank you for your understanding." << std::endl;
 			continue;
 		}
 
 		else if (isBarcodeExist(barcode))
 		{
-			std::cout << "The barcode is already in use. Please enter a unique barcode." << std::endl;
+			std::cout << "The Product Barcode is already in use. Please enter a unique Product Barcode." << std::endl;
 			std::cout << "Thank you for your understanding." << std::endl;
 			continue;
 		}
@@ -317,7 +340,7 @@ void Inventory::addProduct()
 	//name validation
 	while (true)
 	{
-		std::cout << "Enter Product Name: ";
+		std::cout << "Please enter the Product Name: ";
 		std::getline(std::cin, name);
 		name = trim(name);
 
@@ -333,7 +356,7 @@ void Inventory::addProduct()
 	//description vaidation
 	while (true)
 	{
-		std::cout << "Enter Product Description: ";
+		std::cout << "Please enter the Product Description: ";
 		std::getline(std::cin, description);
 		description = trim(description);
 
@@ -347,7 +370,7 @@ void Inventory::addProduct()
 	//category validation
 	while (true)
 	{
-		std::cout << "Enter Product Category: ";
+		std::cout << "Please enter the Product Category: ";
 		std::getline(std::cin, category);
 		category = trim(category);
 
@@ -363,10 +386,10 @@ void Inventory::addProduct()
 	//quantity validation
 	while (true)
 	{
-		std::cout << "Enter Product Quantity: ";
+		std::cout << "Please enter the Product Quantity: ";
 		if (!(std::cin >> quantity) || !isValidQuantity(quantity))
 		{
-			std::cout << "The quantity format is invalid. Please re-enter a valid quantity." << std::endl;
+			std::cout << "The Product Quantity format is invalid. Please re-enter a valid Product Quantity." << std::endl;
 			std::cout << "Thank you for your understanding." << std::endl;
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -379,10 +402,10 @@ void Inventory::addProduct()
 	//price validation
 	while (true)
 	{
-		std::cout << "Enter Product Price: RM ";
+		std::cout << "Please enter the Product Price: RM ";
 		if (!(std::cin >> price) || !isValidPrice(price))
 		{
-			std::cout << "The price format is invalid. Please re-enter the price with a non-negative number." << std::endl;
+			std::cout << "The Product Price format is invalid. Please re-enter the Product Price with a non-negative number." << std::endl;
 			std::cout << "Thank you for your understanding." << std::endl;
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -395,7 +418,7 @@ void Inventory::addProduct()
 	//supplier validation
 	while (true)
 	{
-		std::cout << "Enter Product Supplier: ";
+		std::cout << "Please enter the Product Supplier: ";
 		std::getline(std::cin, supplier);
 		supplier = trim(supplier);
 
@@ -412,13 +435,13 @@ void Inventory::addProduct()
 	while (true)
 	{
 		//expiry date validation
-		std::cout << "Enter Product Expiry Date (YYYY-MM-DD, press Enter if none): ";
+		std::cout << "Please enter the Product Expiry Date (YYYY-MM-DD, press Enter if none): ";
 		std::getline(std::cin, expiryDate);
 		expiryDate = trim(expiryDate);
 
 		if (!isValidDate(expiryDate))
 		{
-			std::cout << "The date format is invalid. Please re-enter the date in YYYY-MM-DD format." << std::endl;
+			std::cout << "The Product Expiry Date format is invalid. Please re-enter the Product Expiry Date in YYYY-MM-DD format." << std::endl;
 			std::cout << "Thank you for your understanding." << std::endl;
 			continue;
 		}
@@ -428,13 +451,13 @@ void Inventory::addProduct()
 	while (true)
 	{
 		//manufacture date validation
-		std::cout << "Enter Product Manufacture Date (YYYY-MM-DD, press Enter if none): ";
+		std::cout << "Please enter the Product Manufacture Date (YYYY-MM-DD, press Enter if none): ";
 		std::getline(std::cin, manufactureDate);
 		manufactureDate = trim(manufactureDate);
 
 		if (!isValidDate(manufactureDate))
 		{
-			std::cout << "The date format is invalid. Please re-enter the date in YYYY-MM-DD format." << std::endl;
+			std::cout << "The Product Manufacture Date format is invalid. Please re-enter the Product Manufacture Ddate in YYYY-MM-DD format." << std::endl;
 			std::cout << "Thank you for your understanding." << std::endl;
 			continue;
 		}
@@ -445,7 +468,7 @@ void Inventory::addProduct()
 	//YYYY-MM-DD format allow lexicographical comparison (string comparison)
 	if (!expiryDate.empty() && !manufactureDate.empty() && expiryDate < manufactureDate)
 	{
-		std::cout << "The expiry date cannot be earlier than the manufacture date. Please re-enter the dates." << std::endl;
+		std::cout << "The Product Expiry Date cannot be earlier than the Product Manufacture Date. Please re-enter the dates." << std::endl;
 		std::cout << "Thank you for your understanding." << std::endl;
 		return addProduct();
 	}
@@ -467,7 +490,7 @@ void Inventory::addProduct()
 	newProductID++;
 
 	std::cout << "=======================================================================\n";
-	std::cout << "Product is added successfully!\n";
+	std::cout << "Congratulations! The product is added successfully!\n";
 }
 //ADD function
 void Inventory::addProduct(const Product& product)
@@ -815,7 +838,7 @@ void Inventory::sortProducts()
 
 	int option;
 	std::cout << "=======================================================================\n";
-	std::cout << "Sort Products	Menu\n";
+	std::cout << "Sort Products Menu\n";
 	std::cout << "=======================================================================\n";
 	std::cout << "1. Sort by ID" << std::endl;
 	std::cout << "2. Sort by Name" << std::endl;
