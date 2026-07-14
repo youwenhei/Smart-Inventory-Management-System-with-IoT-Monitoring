@@ -2,6 +2,7 @@
 #define INVENTORY_H
 #pragma once
 #include <vector>
+#include<string>
 #include "Product.h"
 
 class Inventory
@@ -14,12 +15,9 @@ public:
 	Inventory();
 
 	bool hasProducts() const;
-	int getMenuOption(int min, int max) const;
 	void displayProducts() const;
 	bool isBarcodeExist(const std::string& barcode) const;
-
-	void exitProgram() const;
-	void returnProgram() const;
+	bool isRFIDExist(const std::string& rfid) const;
 
 	void addProduct(); //function overloading
 	void addProduct(const Product& product);
@@ -48,6 +46,10 @@ public:
 
 	void checkProductStatus();
 	static const int LOW_STOCK_THRESHOLD = 10;
+
+	void saveProducts() const;
+	void loadProducts();
+
 };
 
 #endif
