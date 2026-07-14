@@ -1,6 +1,8 @@
-#include "Product.h"
 #include <iostream>
 #include <utility>
+#include <iomanip>
+#include "Product.h"
+#include "Utility.h"
 
 Product::Product(int product_ID,
     std::string product_Barcode,
@@ -30,9 +32,7 @@ Product::Product(int product_ID,
 
 void Product::display() const
 {
-    std::cout << "====================================================\n";
-    std::cout << "Product Details:\n";
-    std::cout << "====================================================\n";
+    displayTitle("Product Details");
     std::cout << "Product ID: " << product_ID << "\n"
         << "Product Barcode: " << product_Barcode << "\n"
         << "Product RFID UID: " << product_RFID_UID << "\n"
@@ -40,7 +40,7 @@ void Product::display() const
         << "Product Description: " << product_Description << "\n"
         << "Product Category: " << product_Category << "\n"
         << "Product Quantity: " << product_Quantity << "\n"
-        << "Product Price: RM " << product_Price << "\n"
+        << "Product Price: RM " << std::fixed << std::setprecision(2) << product_Price << "\n"
         << "Product Supplier: " << product_Supplier << "\n"
         << "Product Expiry Date: " << product_ExpiryDate << "\n"
         << "Product Manufacture Date: " << product_ManufactureDate << "\n";
