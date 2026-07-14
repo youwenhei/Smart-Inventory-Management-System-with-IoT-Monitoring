@@ -48,7 +48,8 @@ A C++ OOP-based inventory management system designed for product management and 
 - Product Management
 - Search, Sort and Update
 - Input Validation
-- File-based Storage (.txt)
+- File-based Storage (.txt) for sample Data. The repository includes a sample `products.txt` file for testing purposes.
+Users can modify or replace the file with their own inventory records.)
 ### v2.0.0 (In Progress)
 - SQLite Integration
 - Database CRUD Operations
