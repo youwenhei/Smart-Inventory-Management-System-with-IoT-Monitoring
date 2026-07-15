@@ -1,5 +1,3 @@
-#include "Inventory.h"
-#include "Utility.h"
 #include <iostream>
 #include <cctype>
 #include <cstdlib>
@@ -11,6 +9,10 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <jdbc/cppconn/prepared_statement.h>
+#include <jdbc/cppconn/exception.h>
+#include "Inventory.h"
+#include "Utility.h"
 //=======================================================================
 Inventory::Inventory()
 {
@@ -325,7 +327,7 @@ void returnProgram()
 //Save program
 void Inventory::saveProducts() const
 {
-	std::ofstream file("products.txt");
+	/*std::ofstream file("products.txt");
 	
 	if (!file.is_open())
 	{
@@ -350,7 +352,45 @@ void Inventory::saveProducts() const
 			<< "\n";
 	}
 
-	file.close();
+	file.close();*/
+	
+	try
+	{
+		sql::Connection* con = db.getConnection();
+
+		sql::PreparedStatement* pstmt =
+			con->prepareStatement(
+				"INSERT INTO products "
+				"(product_ID, barcode, name, description, category, quantity, price, supplier, expiry_date, manufacture_date, rfid_uid) "
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+			);
+
+		for (const auto& product : products)
+		{
+			pstmt->setInt(1, product.getID());
+			pstmt->setString(2, product.getBarcode());
+			pstmt->setString(3, product.getName());
+			pstmt->setString(4, product.getDescription());
+			pstmt->setString(5, product.getCategory());
+			pstmt->setInt(6, product.getQuantity());
+			pstmt->setDouble(7, product.getPrice());
+			pstmt->setString(8, product.getSupplier());
+			pstmt->setString(9, product.getExpiryDate());
+			pstmt->setString(10, product.getManufactureDate());
+			pstmt->setString(11, product.getRFID());
+
+			pstmt->execute();
+		}
+
+		delete pstmt;
+
+		std::cout << "Products saved to database successfully." << std::endl;
+	}
+
+	catch (sql::SQLException& e)
+	{
+		std::cout << "Database Error: " << e.what() << std::endl;
+	}
 }
 //=======================================================================
 //Load program
