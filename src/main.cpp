@@ -1,7 +1,8 @@
-#include "Inventory.h"
-#include "Utility.h"
 #include <iostream>
 #include <windows.h>
+#include "Inventory.h"
+#include "Utility.h"
+#include "Database.h"
 
 using namespace std;
 
@@ -28,9 +29,13 @@ void displayMenu()
 
 int main()
 {
-	SetConsoleOutputCP(CP_UTF8); // Set console output to UTF-8)
+	SetConsoleOutputCP(CP_UTF8);
 
-	Inventory inventory; // Create an instance of Inventory
+	Database db;
+	cout << "Database Connected Successfully!" << endl;
+	system("pause");
+
+	Inventory inventory;
 
 	while (true)
 	{
