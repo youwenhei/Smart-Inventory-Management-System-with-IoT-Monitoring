@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iomanip>
 #include <jdbc/cppconn/prepared_statement.h>
+#include <jdbc/cppconn/resultset.h>
 #include <jdbc/cppconn/exception.h>
 #include "Inventory.h"
 #include "Utility.h"
@@ -325,35 +326,8 @@ void returnProgram()
 }
 //=======================================================================
 //Save program
-void Inventory::saveProducts() const
-{
-	/*std::ofstream file("products.txt");
-	
-	if (!file.is_open())
-	{
-		std::cout << "The file is unable to open." << std::endl;
-		return;
-	}
-	
-	for (const auto& product : products)
-	{
-		file << product.getID() << "|"
-			<< product.getBarcode() << "|"
-			<< product.getRFID() << "|"
-			<< product.getName() << "|"
-			<< product.getDescription() << "|"
-			<< product.getCategory() << "|"
-			<< product.getQuantity() << "|"
-			<< std::fixed << std::setprecision(2)
-			<<product.getPrice() << "|"
-			<< product.getSupplier() << "|"
-			<< product.getExpiryDate() << "|"
-			<< product.getManufactureDate() << "|"
-			<< "\n";
-	}
-
-	file.close();*/
-	
+bool Inventory::saveProducts() const
+{	
 	try
 	{
 		sql::Connection* con = db.getConnection();
@@ -375,8 +349,25 @@ void Inventory::saveProducts() const
 			pstmt->setInt(6, product.getQuantity());
 			pstmt->setDouble(7, product.getPrice());
 			pstmt->setString(8, product.getSupplier());
-			pstmt->setString(9, product.getExpiryDate());
-			pstmt->setString(10, product.getManufactureDate());
+			
+			if (9, product.getExpiryDate().empty())
+			{
+				pstmt->setNull(9, sql::DataType::DATE);
+			}
+			else
+			{
+				pstmt->setString(9, product.getExpiryDate());
+			}
+
+			if (10, product.getManufactureDate().empty())
+			{
+				pstmt->setNull(10, sql::DataType::DATE);
+			}
+			else
+			{
+				pstmt->setString(10, product.getManufactureDate());
+			}
+
 			pstmt->setString(11, product.getRFID());
 
 			pstmt->execute();
@@ -384,87 +375,94 @@ void Inventory::saveProducts() const
 
 		delete pstmt;
 
-		std::cout << "Products saved to database successfully." << std::endl;
+		return true;
 	}
 
 	catch (sql::SQLException& e)
 	{
 		std::cout << "Database Error: " << e.what() << std::endl;
+
+		return false;
 	}
 }
 //=======================================================================
 //Load program
 void Inventory::loadProducts()
 {
-	std::ifstream file("products.txt");
+	try {
+		sql::Connection* con = db.getConnection();
 
-	if (!file)
-	{
-		return;
-	}
+		sql::PreparedStatement* pstmt =
+			con->prepareStatement(
+				"SELECT product_ID, barcode, rfid_uid, name, description, category, quantity, price, supplier, expiry_date, manufacture_date "
+				"FROM products"
+			);
 
-	std::string line;
-	
-	int maxID = 0;
+		sql::ResultSet* res = pstmt->executeQuery();
 
-	while (std::getline(file, line))
-	{
-		std::stringstream ss(line);
+		int maxID = 0;
 
-		std::string id;
-		std::string barcode;
-		std::string rfid;
-		std::string name;
-		std::string description;
-		std::string category;
-		std::string quantity;
-		std::string price;
-		std::string supplier;
-		std::string expiryDate;
-		std::string manufactureDate;
-
-		std::getline(ss, id, '|');
-		std::getline(ss, barcode, '|');
-		std::getline(ss, rfid, '|');
-		std::getline(ss, name, '|');
-		std::getline(ss, description, '|');
-		std::getline(ss, category, '|');
-		std::getline(ss, quantity, '|');
-		std::getline(ss, price, '|');
-		std::getline(ss, supplier, '|');
-		std::getline(ss, expiryDate, '|');
-		std::getline(ss, manufactureDate, '|');
-
-		if (id.empty() || barcode.empty())
+		while (res->next())
 		{
-			continue;
+			int id = res->getInt("product_ID");
+
+			std::string barcode = res->getString("barcode");
+			std::string rfid = res->getString("rfid_uid");
+			std::string name = res->getString("name");
+			std::string description = res->getString("description");
+			std::string category = res->getString("category");
+
+			int quantity = res->getInt("quantity");
+			double price = res->getDouble("price");
+
+			std::string supplier = res->getString("supplier");
+			
+			std::string expiryDate;
+			std::string manufactureDate;
+
+			if (!res->isNull("expiry_date"))
+			{
+				expiryDate = res->getString("expiry_date");
+			}
+
+			if (!res->isNull("manufacture_date"))
+			{
+				manufactureDate = res->getString("manufacture_date");
+			}
+
+			Product product(
+				id,
+				barcode,
+				name,
+				description,
+				category,
+				quantity,
+				price,
+				supplier,
+				expiryDate,
+				manufactureDate
+			);
+
+			product.setRFID(rfid);
+
+			products.push_back(product);
+
+			if (id > maxID)
+			{
+				maxID = id;
+			}
 		}
 
-		Product product(
-			std::stoi(id),
-			barcode,
-			name,
-			description,
-			category,
-			std::stoi(quantity),
-			std::stod(price),
-			supplier,
-			expiryDate,
-			manufactureDate
-		);
+		newProductID = maxID + 1;
 
-		product.setRFID(rfid);
-		products.push_back(product);
-
-		if (std::stoi(id) > maxID)
-		{
-			maxID = std::stoi(id);
-		}
+		delete res;
+		delete pstmt;
 	}
 
-	newProductID = maxID + 1;
-
-	file.close();
+	catch (sql::SQLException& e)
+	{
+		std::cout << "Database Load Error: " << e.what() << std::endl;
+	}
 }
 //=======================================================================
 //=======================================================================
@@ -654,11 +652,47 @@ void Inventory::addProduct()
 	);
 
 	addProduct(newProduct);
-	newProductID++;
-	saveProducts();
 
-	std::cout << "=======================================================================\n";
-	std::cout << "Congratulations! The product is added successfully!\n";
+	try
+	{
+		if (saveProducts())
+		{
+			newProductID++;
+
+			std::cout << "=======================================================================\n";
+			std::cout << "Congratulations! The product is added successfully!\n";
+		}
+
+		else
+		{
+			products.pop_back();
+
+			std::cout << "=======================================================================\n";
+			std::cout << "Sorry! The product is failed to add due to a database error.\n";
+			std::cout << "Please try again!\n";
+		}
+	}
+
+	catch (const std::exception& e)
+	{
+		products.pop_back();
+
+		if (saveProducts())
+		{
+			newProductID++;
+
+			std::cout << "=======================================================================\n";
+			std::cout << "Congratulations! The product is added successfully!\n";
+		}
+
+		else
+		{
+			products.pop_back();
+
+			std::cout << "=======================================================================\n";
+			std::cout << "Unexpected Error: " << e.what() << std::endl;
+		}
+	}
 }
 //ADD function
 void Inventory::addProduct(const Product& product)
