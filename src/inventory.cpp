@@ -1918,10 +1918,17 @@ void Inventory::deleteProduct()
 
 			if (confirm == 'y')
 			{
-				products.erase(it);
-				saveProducts();
+				if (deleteProductFromDatabase(id))
+				{
+					products.erase(it);
+					saveProducts();
 
-				std::cout << "\nCongratulations! The product is deleted successfully." << std::endl;
+					std::cout << "\nCongratulations! The product is deleted successfully." << std::endl;
+				}
+				else
+				{
+					std::cout << "\nFailed to delete product from database." << std::endl;
+				}
 			}
 
 			else
@@ -1983,6 +1990,10 @@ void Inventory::checkProductStatus()
 	clearScreen();
 }
 //=======================================================================
+//=======================================================================
+//Database
+//=======================================================================
+//=======================================================================
 //Update database
 bool Inventory::updateProductInDatabase(const Product& product) const
 {
@@ -2042,6 +2053,35 @@ bool Inventory::updateProductInDatabase(const Product& product) const
 		}
 
 		pstmt->setInt(11, product.getID());
+
+		pstmt->execute();
+
+		delete pstmt;
+
+		return true;
+	}
+
+	catch (sql::SQLException& e)
+	{
+		std::cout << "Database Error: " << e.what() << std::endl;
+
+		return false;
+	}
+}
+//=======================================================================
+//Delete database
+bool Inventory::deleteProductFromDatabase(int productID)
+{
+	try
+	{
+		sql::Connection* con = db.getConnection();
+
+		sql::PreparedStatement* pstmt =
+			con->prepareStatement(
+				"DELETE FROM products WHERE product_ID=?"
+			);
+
+		pstmt->setInt(1, productID);
 
 		pstmt->execute();
 
