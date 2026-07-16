@@ -52,9 +52,8 @@ public:
 
 	bool saveProducts() const;
 	void loadProducts();
-
 	bool updateProductInDatabase(const Product& product) const;
-
+	bool deleteProductFromDatabase(int productID);
 };
 
 #endif
