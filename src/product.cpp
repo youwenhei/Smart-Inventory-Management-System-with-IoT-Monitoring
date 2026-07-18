@@ -6,6 +6,7 @@
 
 Product::Product(int product_ID,
     std::string product_Barcode,
+    std::string product_rfid,
     std::string product_Name,
     std::string product_Description,
     std::string product_Category,
