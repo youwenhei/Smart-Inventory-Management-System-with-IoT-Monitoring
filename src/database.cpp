@@ -14,7 +14,7 @@ Database::Database()
 		con = driver->connect(
 			"tcp://127.0.0.1:3306",
 			"root",
-			"YOUR_PASSWORD"
+			"MyPassword123!"
 		);
 
 		con->setSchema("inventory_db");
