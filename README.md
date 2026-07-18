@@ -95,28 +95,28 @@ The system provides complete product management functionalities with MySQL datab
 ## Version 1.0 - C++ Inventory Management System
 
 ### Main Menu
-![Main Menu](screenshots/main_menu.png)
+![Main Menu](screenshots/v1.0/main_menu.png)
 
 ### Add Product
-![Add Product](screenshots/add_product.png)
+![Add Product](screenshots/v1.0/add_product.png)
 
 ### Display Products
-![Display Products](screenshots/display_products.png)
+![Display Products](screenshots/v1.0/display_products.png)
 
 ### Search Product
-![Search Product](screenshots/search_product.png)
+![Search Product](screenshots/v1.0/search_product.png)
 
 ### Sort Products
-![Sort Products](screenshots/sort_products.png)
+![Sort Products](screenshots/v1.0/sort_products.png)
 
 ### Update Product
-![Update Product](screenshots/update_product.png)
+![Update Product](screenshots/v1.0/update_product.png)
 
 ### Delete Product
-![Delete Product](screenshots/delete_product.png)
+![Delete Product](screenshots/v1.0/delete_product.png)
 
 ### Product Status Monitoring
-![Check Product Status](screenshots/check_product_status.png)
+![Check Product Status](screenshots/v1.0/check_product_status.png)
 
 
 ---
@@ -124,22 +124,35 @@ The system provides complete product management functionalities with MySQL datab
 # Version 2.0 - MySQL Database Integration & Smart Dashboard
 
 ### Database Connection
-![Database Connection](screenshots/database_connection.png)
+![Database Connection](screenshots/v2.0/database_connection.png)
+
+### Main Menu(Updated Version)
+![Updated Main Menu](screenshots/v2.0/main_menu.png)
 
 ### Inventory Dashboard
-![Inventory Dashboard](screenshots/inventory_dashboard.png)
+![Inventory Dashboard](screenshots/v2.0/dashboard.png)
+![Dahsboard Sample Case](screenshots/v2.0/dashboard_after_delete_product.png)
+![Dahsboard Sample Case](screenshots/v2.0/dashboard_after_update.png)
 
-### Database Product Table
-![Database Table](screenshots/database_table.png)
+### Database Product Table After Update/Delete
+![Database Table](screenshots/v2.0/database_table_after_update_delete.png)
+
+### Database Structure
+![Database Structure](screenshots/v2.0/database_structure.png)
 
 ### RFID UID Support
-![RFID Support](screenshots/rfid_support.png)
+![Add Product](screenshots/v2.0/add_product_crud.png)
+![Update Product](screenshots/v2.0/update_product_crud.png)
+
+### Refresh Function
+![Refresh Function](screenshots/v2.0/refresh_product_list.png)
 
 ### Export Report
-![Export Report](screenshots/export_report.png)
+![Export Report](screenshots/v2.0/export_report.png)
 
 ### CSV/TXT Report
-![Inventory Report](screenshots/inventory_report.png)
+![CSV Report](screenshots/v2.0/csv_export.png)
+![TXT Report](screenshots/v2.0/txt_report.png)
 
 ---
 
