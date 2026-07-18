@@ -35,9 +35,7 @@ public:
 	bool searchByPriceRange() const;
 
 	void sortProducts();
-	void sortByPriceAscending() const;
-	void sortByPriceDescending() const;
-	void sortByExpiryDate() const;
+
 
 	void updateProduct();
 	std::string inputString(const std::string& prompt);
@@ -51,9 +49,16 @@ public:
 	static const int LOW_STOCK_THRESHOLD = 10;
 
 	bool saveProducts() const;
-	void loadProducts();
+	bool insertProductToDatabase(const Product& product);
+	bool loadProducts();
 	bool updateProductInDatabase(const Product& product) const;
 	bool deleteProductFromDatabase(int productID);
+
+	void refreshProducts();
+	void displayDashboard() const;
+	void exportReport();
+	bool exportCSV() const;
+	bool exportTXT() const;
 };
 
 #endif
