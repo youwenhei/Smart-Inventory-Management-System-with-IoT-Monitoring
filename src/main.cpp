@@ -22,7 +22,10 @@ void displayMenu()
 	cout << "5. Update Product" << endl;
 	cout << "6. Delete Product" << endl;
 	cout << "7. Check Product Status" << endl;
-	cout << "8. Exit" << endl;
+	cout << "8. Inventory Dashboard" << endl;
+	cout << "9. Refresh Product List" << endl;
+	cout << "10. Export Report" << endl;
+	cout << "11. Exit" << endl;
 	std::cout << "=======================================================================\n";
 	cout << "Please select an option: ";
 }
@@ -79,7 +82,19 @@ int main()
 			inventory.checkProductStatus();
 			break;
 
-		case 8:
+		case 8://display dashboard
+			inventory.displayDashboard();
+			break;
+
+		case 9:
+			inventory.refreshProducts();
+			break;
+
+		case 10:
+			inventory.exportReport();
+			break;
+
+		case 11:
 			cout << "Exiting the program....." << endl;
 			cout << "Thank You for Using YouExpress Inventory Management System!" << endl;
 			cout << "Goodbye! Wish You Have A Nice Day!" << endl;
