@@ -1,4 +1,4 @@
-# IoT-Enabled Smart Inventory Management System with RFID, Database, and FPGA-Based Low-Stock Alert
+# IoT-Enabled Smart Inventory Management System with RFID and Database Integration
 
 Project Progress: Still on Progress
 
@@ -166,7 +166,7 @@ The system provides complete product management functionalities with MySQL datab
 ![CSV Report](screenshots/v2.0/csv_export.png)
 ![TXT Report](screenshots/v2.0/txt_report.png)
 
-# Version 3.0 - 
+# Version 3.0 - RFID and IoT Device Integration
 
 ### RFID Scanner
 
@@ -175,6 +175,10 @@ The system provides complete product management functionalities with MySQL datab
 ### IoT Device Status Monitoring
 
 ![Device Status](screenshots/v3.0/device_status_dashboard.png)
+
+# Version 3.5 - Real-Time RFID Inventory Monitoring
+
+# Version 4.0 - FPGA-Based Low Stock Alert
 
 ---
 
@@ -210,12 +214,15 @@ Implemented:
 RFID and IoT Device Integration.
 
 Implemented:
+-RFID UID Storage
 - RFID UID-based product identification
 - RFID scanner module
 - ESP32 device status monitoring
 - RFID connection monitoring
 
 ## v3.5
+Real-Time RFID Inventory Monitoring
+
 Advanced Features:
 -ESP32 sends sensor data
 -MQTT communication
@@ -225,7 +232,7 @@ Advanced Features:
 ---
 
 ## v4.0 (Planned)
-FPGA-Based Smart Stock Monitoring.
+FPGA-Based Low-Stock Alert System.
 
 Planned:
 - FPGA low-stock alert system
