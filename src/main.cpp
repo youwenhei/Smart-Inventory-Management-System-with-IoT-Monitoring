@@ -3,6 +3,7 @@
 #include "Inventory.h"
 #include "Utility.h"
 #include "Database.h"
+#include "Serial.h"
 
 using namespace std;
 
@@ -25,7 +26,8 @@ void displayMenu()
 	cout << "8. Inventory Dashboard" << endl;
 	cout << "9. Refresh Product List" << endl;
 	cout << "10. Export Report" << endl;
-	cout << "11. Exit" << endl;
+	cout << "11. Scan RFID Card" << endl;
+	cout << "12. Exit" << endl;
 	std::cout << "=======================================================================\n";
 	cout << "Please select an option: ";
 }
@@ -44,7 +46,7 @@ int main()
 	{
 		clearScreen();
 		displayMenu();
-		int option = getMenuOption(1, 11);
+		int option = getMenuOption(1, 12);
 
 		switch (option)
 		{
@@ -95,6 +97,10 @@ int main()
 			break;
 
 		case 11:
+			inventory.scanRFID();
+			break;
+
+		case 12:
 			cout << "Exiting the program....." << endl;
 			cout << "Thank You for Using YouExpress Inventory Management System!" << endl;
 			cout << "Goodbye! Wish You Have A Nice Day!" << endl;
