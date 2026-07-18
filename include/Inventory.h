@@ -5,6 +5,7 @@
 #include<string>
 #include "Product.h"
 #include "Database.h"
+#include "DeviceStatus.h"
 
 class Inventory
 {
@@ -13,6 +14,10 @@ private:
 	int newProductID; // Initialize the product ID counter
 
 	Database db;
+
+	DeviceStatus esp32Status;
+	DeviceStatus rfidStatus;
+	//DeviceStatus fpgaStatus;
 
 public:
 	Inventory();
@@ -33,6 +38,7 @@ public:
 	bool searchByCategory() const;
 	bool searchBySupplier() const;
 	bool searchByPriceRange() const;
+	bool searchByRFIDManual() const;
 
 	void sortProducts();
 
@@ -59,6 +65,9 @@ public:
 	void exportReport();
 	bool exportCSV() const;
 	bool exportTXT() const;
+
+	void scanRFID();
+	bool searchProductByRFID(const std::string& rfid) const;
 };
 
 #endif
