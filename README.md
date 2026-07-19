@@ -222,7 +222,7 @@ MySQL Database
 
 ![RFID Scanner](screenshots/v3.0/wait_for_rfid_scanning.png)
 ![RFID Scanner](screenshots/v3.0/after_rfid_scanning.png)
-![RFID Scanner](screenshots/v3.0/product_found_after_scanning.png)
+![RFID Scanner](screenshots/v3.0/product_found_after_scanning_rfid.png)
 
 
 ## Database Integration
@@ -232,7 +232,7 @@ MySQL Database
 
 ## Hardware Prototype
 
-![RFID Hardware](screenshots/v3.0/hardware/hardware_connection.jpg)
+![RFID Hardware](screenshots/v3.0/hardware/hardware_connection.jpeg)
 
 
 ---
