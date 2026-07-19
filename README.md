@@ -10,6 +10,30 @@ A C++ based smart inventory management system developed using Object-Oriented Pr
 
 The system provides complete product management functionalities with MySQL database integration, inventory dashboard monitoring, and report generation. The system provides inventory management functionalities with MySQL database integration, dashboard monitoring, RFID-based product identification, and IoT device status monitoring.
 
+## System Architecture (Until Version 3.0)
+
+Hardware Layer
+────────────────────────
+RFID Card
+RC522 RFID Reader
+ESP32
+
+Communication Layer
+────────────────────────
+USB Serial Communication
+
+Application Layer
+────────────────────────
+C++ Inventory Management System
+Dashboard
+RFID Scanner
+Inventory Module
+Report Module
+
+Database Layer
+────────────────────────
+MySQL Database
+
 ---
 
 # Features
@@ -196,6 +220,11 @@ The system provides complete product management functionalities with MySQL datab
 ![MySQL](screenshots/v3.0/mysql_rfid.png)
 
 
+## Hardware Prototype
+
+![RFID Hardware](screenshots/v3.0/hardware/rfid_connection.jpg)
+
+
 ---
 
 
@@ -207,7 +236,9 @@ The system provides complete product management functionalities with MySQL datab
 
 # Version 4.0 - FPGA-Based Low Stock Alert
 
+
 ---
+
 
 # Version History
 
